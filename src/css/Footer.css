@@ -1,0 +1,681 @@
+/* =====================================================
+   NOVACART FOOTER
+===================================================== */
+
+.footer {
+    width: 100%;
+    max-width: 100%;
+    margin-top: 50px;
+
+    background:
+        linear-gradient(
+            120deg,
+            #101c3c,
+            #293b80 50%,
+            #5b4b9a
+        );
+
+    color: white;
+
+    overflow-x: hidden;
+}
+
+
+/* =====================================================
+   GLOBAL FOOTER BOX SIZING
+===================================================== */
+
+.footer,
+.footer * {
+    box-sizing: border-box;
+}
+
+
+/* =====================================================
+   FOOTER TOP
+===================================================== */
+
+.footer-top {
+    width: 100%;
+    max-width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(6, minmax(0, 1fr));
+
+    gap: 30px;
+
+    padding: 50px 60px;
+
+    border-bottom:
+        1px solid rgba(255, 255, 255, 0.15);
+}
+
+
+/* =====================================================
+   FOOTER COLUMNS
+===================================================== */
+
+.footer-column,
+.footer-contact {
+    display: flex;
+
+    flex-direction: column;
+
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+}
+
+
+/* =====================================================
+   HEADINGS
+===================================================== */
+
+.footer-column h3,
+.footer-contact h3 {
+    color: #9fa8bb;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    margin: 0 0 18px;
+
+    letter-spacing: 0.6px;
+}
+
+
+/* =====================================================
+   FOOTER LINKS
+===================================================== */
+
+.footer-column a {
+    display: block;
+
+    width: fit-content;
+    max-width: 100%;
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    margin-bottom: 12px;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+
+.footer-column a:hover {
+    color: #62b2ff;
+
+    transform: translateX(3px);
+}
+
+
+/* =====================================================
+   CUSTOMER SUPPORT
+===================================================== */
+
+.footer-contact p {
+    width: 100%;
+    max-width: 100%;
+
+    color: #e2e6ef;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+
+    margin: 0 0 6px;
+
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+
+/* =====================================================
+   FOOTER FEATURES
+===================================================== */
+
+.footer-features {
+    width: 100%;
+    max-width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 25px;
+
+    padding: 30px 60px;
+
+    border-bottom:
+        1px solid rgba(255, 255, 255, 0.15);
+}
+
+
+/* =====================================================
+   FEATURE ITEM
+===================================================== */
+
+.footer-features > div {
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+}
+
+
+/* =====================================================
+   FEATURE ICON
+===================================================== */
+
+.footer-features span {
+    width: 45px;
+    height: 45px;
+
+    min-width: 45px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    font-size: 22px;
+
+    background:
+        rgba(255, 255, 255, 0.08);
+
+    border-radius: 11px;
+}
+
+
+/* =====================================================
+   FEATURE TEXT
+===================================================== */
+
+.footer-features strong {
+    display: block;
+
+    color: #ffffff;
+
+    font-size: 14px;
+
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+
+.footer-features small {
+    display: block;
+
+    color: #aeb6c8;
+
+    font-size: 11px;
+
+    margin-top: 4px;
+
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+
+/* =====================================================
+   FOOTER BOTTOM
+===================================================== */
+
+.footer-bottom {
+    width: 100%;
+    max-width: 100%;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 20px;
+
+    padding: 22px 60px;
+
+    background:
+        rgba(6, 14, 31, 0.65);
+}
+
+
+/* =====================================================
+   BRAND
+===================================================== */
+
+.footer-brand {
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 21px;
+
+    font-weight: 600;
+
+    max-width: 100%;
+
+    overflow-wrap: anywhere;
+}
+
+
+.footer-brand strong {
+    color: #4ca5ff;
+}
+
+
+/* =====================================================
+   COPYRIGHT
+===================================================== */
+
+.footer-bottom p {
+    color: #9ca5b7;
+
+    font-size: 12px;
+
+    margin: 0;
+
+    max-width: 100%;
+
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+
+/* =====================================================
+   PAYMENT ICONS
+===================================================== */
+
+.payment-icons {
+    color: #d9dfeb;
+
+    font-size: 13px;
+
+    max-width: 100%;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 1100px) {
+
+    .footer-top {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+
+        gap: 30px;
+
+        padding: 40px 35px;
+    }
+
+
+    .footer-features {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 25px;
+
+        padding: 30px 35px;
+    }
+
+
+    .footer-bottom {
+        padding: 20px 35px;
+    }
+}
+
+
+/* =====================================================
+   SMALL TABLET
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .footer-top {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        padding: 35px 25px;
+
+        gap: 30px 20px;
+    }
+
+
+    .footer-features {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        padding: 25px;
+    }
+
+
+    .footer-bottom {
+        padding: 20px 25px;
+
+        gap: 15px;
+    }
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .footer {
+        width: 100%;
+        max-width: 100%;
+
+        margin-top: 30px;
+
+        overflow-x: hidden;
+    }
+
+
+    /* ---------------------------------------------
+       FOOTER TOP
+    --------------------------------------------- */
+
+    .footer-top {
+        display: grid;
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        width: 100%;
+        max-width: 100%;
+
+        padding: 30px 16px;
+
+        gap: 28px 12px;
+    }
+
+
+    /* ---------------------------------------------
+       COLUMNS
+    --------------------------------------------- */
+
+    .footer-column,
+    .footer-contact {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+
+        overflow: hidden;
+    }
+
+
+    /* ---------------------------------------------
+       HEADINGS
+    --------------------------------------------- */
+
+    .footer-column h3,
+    .footer-contact h3 {
+        font-size: 11px;
+
+        margin-bottom: 15px;
+
+        white-space: normal;
+    }
+
+
+    /* ---------------------------------------------
+       LINKS
+    --------------------------------------------- */
+
+    .footer-column a {
+        width: 100%;
+        max-width: 100%;
+
+        font-size: 12px;
+
+        margin-bottom: 10px;
+
+        white-space: normal;
+
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+
+
+    /* ---------------------------------------------
+       CUSTOMER SUPPORT
+    --------------------------------------------- */
+
+    .footer-contact {
+        grid-column: auto;
+
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+    }
+
+
+    .footer-contact p {
+        width: 100%;
+        max-width: 100%;
+
+        font-size: 11px;
+
+        line-height: 1.6;
+
+        white-space: normal;
+
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+
+
+    /* ---------------------------------------------
+       FEATURES
+    --------------------------------------------- */
+
+    .footer-features {
+        display: grid;
+
+        grid-template-columns: 1fr;
+
+        width: 100%;
+        max-width: 100%;
+
+        padding: 22px 16px;
+
+        gap: 16px;
+    }
+
+
+    .footer-features > div {
+        display: flex;
+
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+
+        align-items: center;
+
+        gap: 12px;
+    }
+
+
+    /* ---------------------------------------------
+       FEATURE ICON
+    --------------------------------------------- */
+
+    .footer-features span {
+        width: 42px;
+        height: 42px;
+
+        min-width: 42px;
+
+        flex-shrink: 0;
+
+        font-size: 20px;
+
+        border-radius: 10px;
+    }
+
+
+    /* ---------------------------------------------
+       FEATURE TEXT
+    --------------------------------------------- */
+
+    .footer-features > div > div {
+        min-width: 0;
+
+        width: 100%;
+        max-width: 100%;
+    }
+
+
+    .footer-features strong {
+        font-size: 13px;
+
+        white-space: normal;
+
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+
+
+    .footer-features small {
+        font-size: 10px;
+
+        white-space: normal;
+
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+
+
+    /* ---------------------------------------------
+       FOOTER BOTTOM
+    --------------------------------------------- */
+
+    .footer-bottom {
+        display: flex;
+
+        flex-direction: column;
+
+        justify-content: center;
+
+        align-items: center;
+
+        width: 100%;
+        max-width: 100%;
+
+        padding: 22px 16px;
+
+        gap: 12px;
+
+        text-align: center;
+    }
+
+
+    .footer-brand {
+        max-width: 100%;
+
+        font-size: 19px;
+
+        white-space: normal;
+
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+
+
+    .footer-bottom p {
+        width: 100%;
+        max-width: 100%;
+
+        font-size: 10px;
+
+        line-height: 1.5;
+
+        white-space: normal;
+
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+
+
+    .payment-icons {
+        max-width: 100%;
+
+        font-size: 11px;
+
+        white-space: normal;
+
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+}
+
+
+/* =====================================================
+   VERY SMALL MOBILE
+===================================================== */
+
+@media (max-width: 380px) {
+
+    .footer-top {
+        grid-template-columns: 1fr;
+
+        padding: 28px 18px;
+
+        gap: 25px;
+    }
+
+
+    .footer-column,
+    .footer-contact {
+        width: 100%;
+    }
+
+
+    .footer-features {
+        padding: 20px 15px;
+    }
+
+
+    .footer-features > div {
+        gap: 10px;
+    }
+
+
+    .footer-features span {
+        width: 40px;
+        height: 40px;
+
+        min-width: 40px;
+    }
+
+
+    .footer-bottom {
+        padding: 20px 15px;
+    }
+}

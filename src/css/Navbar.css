@@ -1,0 +1,294 @@
+.navbar {
+  min-height: 64px;
+  /* background: #2874f0; */
+   background: linear-gradient(120deg, #101c3c, #293b80 50%, #5b4b9a);
+  color: #fff;
+  box-shadow: 0 2px 10px rgba(7, 26, 61, 0.25);
+
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 8px max(18px, calc((100vw - 1400px) / 2));
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+
+/* BRAND */
+.brand {
+  border: 0;
+  background: none;
+  color: #fff;
+  cursor: pointer;
+  text-align: left;
+  min-width: 105px;
+  padding: 0;
+}
+
+.brand > span {
+  font-size: 23px;
+  font-weight: 900;
+  font-style: italic;
+  line-height: 1;
+}
+
+.brand > span span {
+  color: #ffe500;
+}
+
+.brand small {
+  display: block;
+  font-size: 10px;
+  font-style: italic;
+  margin-top: 2px;
+}
+
+.brand small b {
+  color: #ffe500;
+}
+
+/* SEARCH */
+.search-box {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 2px;
+  flex: 1;
+  max-width: 610px;
+  min-width: 180px;
+  color: #64748b;
+  overflow: hidden;
+}
+
+.search-box > span {
+  font-size: 22px;
+  padding-left: 12px;
+  flex-shrink: 0;
+}
+
+.search-box input {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  padding: 0 10px;
+  font-size: 14px;
+  color: #111827;
+}
+
+.search-box input::placeholder {
+  color: #94a3b8;
+}
+
+.search-box button {
+  border: 0;
+  background: none;
+  font-size: 20px;
+  color: #64748b;
+  cursor: pointer;
+  padding: 0 10px;
+  flex-shrink: 0;
+}
+
+.search-box button:hover {
+  color: #2874f0;
+}
+
+/* NAV BUTTONS */
+.nav-action {
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  padding: 8px 4px;
+}
+
+.nav-action:hover {
+  color: #ffe500;
+}
+
+.login-btn {
+  background: #fff;
+  color: #2874f0;
+  padding: 9px 28px;
+  border-radius: 2px;
+}
+
+.login-btn:hover {
+  background: #f8fafc;
+  color: #2874f0;
+}
+
+.nav-action b {
+  background: #ff6161;
+  border-radius: 10px;
+  padding: 1px 5px;
+  font-size: 10px;
+  margin-left: 2px;
+}
+
+/* SECOND NAV */
+.subnav {
+  min-height: 48px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 38px;
+  border-bottom: 1px solid #e5e7eb;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+
+.subnav::-webkit-scrollbar {
+  display: none;
+}
+
+.subnav button {
+  border: 0;
+  background: none;
+  text-transform: capitalize;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  padding: 14px 0;
+  color: #111827;
+}
+
+.subnav button:hover,
+.subnav button.active {
+  color: #2874f0;
+}
+
+/* TABLET */
+@media (max-width: 1000px) {
+  .navbar {
+    padding-left: 18px;
+    padding-right: 18px;
+    gap: 12px;
+  }
+
+  .search-box {
+    max-width: none;
+  }
+
+  .seller-btn {
+    display: none;
+  }
+
+  .subnav {
+    justify-content: flex-start;
+    padding: 0 16px;
+    gap: 24px;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 700px) {
+  .navbar {
+    min-height: 60px;
+    padding: 8px 12px;
+    gap: 10px;
+  }
+
+  .brand {
+    min-width: 88px;
+  }
+
+  .brand > span {
+    font-size: 19px;
+  }
+
+  .brand small {
+    font-size: 8px;
+  }
+
+  .search-box {
+    height: 38px;
+    min-width: 0;
+  }
+
+  .search-box > span {
+    font-size: 19px;
+    padding-left: 8px;
+  }
+
+  .search-box input {
+    font-size: 13px;
+    padding: 0 6px;
+  }
+
+  .search-box button {
+    font-size: 18px;
+    padding: 0 7px;
+  }
+
+  .login-btn {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  .nav-action:not(.login-btn):not(.cart-link) {
+    display: none;
+  }
+
+  .subnav {
+    min-height: 44px;
+    padding: 0 14px;
+    gap: 20px;
+  }
+
+  .subnav button {
+    font-size: 13px;
+    padding: 12px 0;
+  }
+}
+
+/* VERY SMALL MOBILE */
+@media (max-width: 480px) {
+  .navbar {
+    gap: 7px;
+  }
+
+  .brand {
+    min-width: 78px;
+  }
+
+  .brand > span {
+    font-size: 17px;
+  }
+
+  .brand small {
+    display: none;
+  }
+
+  .login-btn {
+    padding: 8px 9px;
+    font-size: 12px;
+  }
+
+  .search-box {
+    height: 36px;
+  }
+
+  .search-box > span {
+    display: none;
+  }
+
+  .search-box input {
+    padding-left: 9px;
+  }
+
+  .subnav {
+    gap: 18px;
+  }
+}

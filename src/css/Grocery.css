@@ -1,0 +1,342 @@
+/* =========================
+   GROCERY PAGE
+========================= */
+
+.grocery-page {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 18px;
+  background: #f5f7fb;
+  min-height: 100vh;
+}
+
+
+/* =========================
+   GROCERY HERO
+========================= */
+
+.grocery-hero {
+  min-height: 250px;
+  border-radius: 10px;
+  padding: 35px 55px;
+  margin-bottom: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+
+  color: #fff;
+
+  background: linear-gradient(
+    120deg,
+    #101c3c,
+    #293b80 50%,
+    #5b4b9a
+  );
+
+  overflow: hidden;
+}
+
+.grocery-hero-content {
+  max-width: 650px;
+}
+
+.grocery-tag {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.grocery-hero h1 {
+  margin: 10px 0;
+  font-size: 36px;
+  line-height: 1.15;
+}
+
+ .grocery-hero h1 strong {
+  color: #ffe500;
+} 
+
+.grocery-hero p {
+  margin: 0 0 20px;
+  font-size: 15px;
+} 
+
+.grocery-hero button {
+  border: 0;
+  background: #ffe500;
+  color: #172554;
+  padding: 11px 20px;
+  border-radius: 4px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.grocery-hero button:hover {
+  background: #ffd600;
+}
+
+.grocery-art {
+  font-size: 85px;
+  white-space: nowrap;
+  transform: rotate(-5deg);
+}
+
+
+/* =========================
+   GROCERY CATEGORIES
+========================= */
+
+.grocery-categories {
+  background: #fff;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 16px;
+
+  margin-bottom: 14px;
+
+  border-radius: 8px;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+
+  overflow-x: auto;
+
+  scrollbar-width: none;
+}
+
+.grocery-categories::-webkit-scrollbar {
+  display: none;
+}
+
+
+/* CATEGORY BUTTON */
+
+.grocery-categories button {
+  flex: 0 0 auto;
+
+  border: 1px solid #e2e8f0;
+
+  background: #fff;
+
+  color: #334155;
+
+  padding: 11px 22px;
+
+  border-radius: 6px;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  white-space: nowrap;
+
+  transition: all 0.2s ease;
+}
+
+
+/* HOVER */
+
+.grocery-categories button:hover {
+  border-color: #2874f0;
+
+  color: #2874f0;
+
+  background: #eff6ff;
+}
+
+
+/* ACTIVE */
+
+.grocery-categories button.active {
+  background: #2874f0;
+
+  color: #fff;
+
+  border-color: #2874f0;
+
+  box-shadow: 0 3px 8px rgba(40, 116, 240, 0.25);
+}
+
+
+/* =========================
+   GROCERY HEADING
+========================= */
+
+.grocery-heading {
+  background: #fff;
+
+  padding: 18px 20px;
+
+  margin-bottom: 12px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 15px;
+
+  border-radius: 6px;
+
+  border-bottom: 1px solid #eee;
+}
+
+.grocery-heading h2 {
+  margin: 0;
+
+  font-size: 24px;
+
+  color: #111827;
+}
+
+.grocery-heading p {
+  margin: 4px 0 0;
+
+  color: #64748b;
+
+  font-size: 13px;
+}
+
+.grocery-heading select {
+  border: 1px solid #e2e8f0;
+
+  background: #fff;
+
+  padding: 9px 14px;
+
+  border-radius: 4px;
+
+  outline: none;
+
+  cursor: pointer;
+
+  color: #334155;
+}
+
+
+/* =========================
+   GROCERY PRODUCT GRID
+========================= */
+
+.grocery-grid {
+  margin-top: 0;
+
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 1000px) {
+
+  .grocery-hero {
+    padding: 30px 35px;
+  }
+
+  .grocery-hero h1 {
+    font-size: 30px;
+  }
+
+  .grocery-art {
+    font-size: 65px;
+  }
+
+  .grocery-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+  .grocery-page {
+    padding: 10px 12px 30px;
+  }
+
+  .grocery-hero {
+    min-height: 210px;
+
+    padding: 25px;
+
+    border-radius: 8px;
+  }
+
+  .grocery-hero h1 {
+    font-size: 27px;
+  }
+
+  .grocery-art {
+    font-size: 50px;
+  }
+
+  .grocery-categories {
+    padding: 12px;
+
+    gap: 8px;
+  }
+
+  .grocery-categories button {
+    padding: 9px 16px;
+
+    font-size: 13px;
+  }
+
+  .grocery-heading {
+    flex-direction: column;
+
+    align-items: flex-start;
+  }
+
+  .grocery-heading select {
+    width: 100%;
+  }
+
+  .grocery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+}
+
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 480px) {
+
+  .grocery-hero {
+    padding: 22px 18px;
+  }
+
+  .grocery-hero h1 {
+    font-size: 24px;
+  }
+
+  .grocery-hero p {
+    font-size: 13px;
+  }
+
+  .grocery-art {
+    display: none;
+  }
+
+  .grocery-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
