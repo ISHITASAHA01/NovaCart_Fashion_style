@@ -265,7 +265,7 @@ function CategoryPage({
 
                     {/* SHOP NOW */}
 
-                    <button
+                    {/* <button
                         className="category-shop-btn"
                         onClick={() => {
                             const target = collection
@@ -276,8 +276,28 @@ function CategoryPage({
                         }}
                     >
                         Shop Now →
-                    </button>
+                    </button> */}
+                    <button
+                        className="category-shop-btn"
+                        onClick={() => {
+                            if (collection) {
+                                navigate(`/fashion?collection=${collection}`);
+                            } else {
+                                navigate(`/${category}`);
+                            }
 
+                            setTimeout(() => {
+                                document
+                                    .getElementById("category-products")
+                                    ?.scrollIntoView({
+                                        behavior: "smooth",
+                                        block: "start",
+                                    });
+                            }, 100);
+                        }}
+                    >
+                        Shop Now →
+                    </button>
 
                 </div>
 

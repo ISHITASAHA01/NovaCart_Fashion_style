@@ -224,4 +224,21 @@
 
 .cancel-btn:hover {
     background: #f8fafc;
+    
+}
+.my-orders-btn {
+    width: 100%;
+    border: 0;
+    background: #2874f0;
+    color: #fff;
+    padding: 12px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.my-orders-btn:hover {
+    background: #1d5fc7;
 }

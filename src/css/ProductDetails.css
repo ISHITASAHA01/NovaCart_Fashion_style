@@ -586,3 +586,136 @@
   }
 
 }
+
+/* =========================
+   WRITE REVIEW
+========================= */
+
+.write-review {
+    margin-top: 28px;
+    padding: 24px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+}
+
+.write-review h3 {
+    margin: 0 0 15px;
+    font-size: 20px;
+}
+
+.write-review > p {
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.rating-input {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 16px;
+}
+
+.rating-input button {
+    border: 0;
+    background: transparent;
+    font-size: 30px;
+    cursor: pointer;
+    color: #cbd5e1;
+    padding: 0;
+}
+
+.rating-input button.selected {
+    color: #f59e0b;
+}
+
+.rating-input button:hover {
+    color: #f59e0b;
+}
+
+
+/* REVIEW TEXTAREA */
+
+.write-review textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #dbe2ea;
+    border-radius: 8px;
+    padding: 12px;
+    resize: vertical;
+    outline: none;
+    font-family: inherit;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.write-review textarea:focus {
+    border-color: #2874f0;
+}
+
+
+/* SUBMIT */
+
+.submit-review-btn {
+    border: 0;
+    background: #2874f0;
+    color: white;
+    padding: 11px 22px;
+    border-radius: 7px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.submit-review-btn:hover {
+    background: #1d5dcc;
+}
+
+
+/* LOGIN */
+
+.login-review {
+    padding: 15px 0;
+}
+
+.login-review p {
+    margin-bottom: 12px;
+}
+
+.login-review button {
+    border: 0;
+    background: #2874f0;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+
+/* MESSAGE */
+
+.review-message {
+    color: #2874f0;
+    font-weight: 600;
+    margin: 5px 0 12px;
+}
+
+
+/* REVIEWS LIST */
+
+.reviews-list {
+    margin-top: 24px;
+}
+
+.no-reviews {
+    color: #64748b;
+    padding: 20px 0;
+}
+
+
+/* USER REVIEW DATE */
+
+.review-card small {
+    color: #64748b;
+    margin-left: 8px;
+    font-size: 12px;
+}
+

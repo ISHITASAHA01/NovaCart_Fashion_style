@@ -12,6 +12,9 @@ import ProductCard from "./components/ProductCard";
 import Grocery from "./components/Grocery";
 import CategoryPage from "./components/CategoryPage";
 import Cart from "./components/Cart";
+import OrderConfirmation from "./components/OrderConfirmation";
+import TrackOrder from "./components/TrackOrder";
+import MyOrders from "./components/MyOrders";
 import Wishlist from "./components/Wishlist";
 
 import Login from "./components/Login";
@@ -40,7 +43,7 @@ function Home({
   toggleWishlist,
   wishlist,
 }) {
-  // const [showCollections, setShowCollections] = useState(false);
+  const navigate = useNavigate();
   const categories = useMemo(() => {
     const homeCategories = products
       .map((product) => product.category)
@@ -158,10 +161,7 @@ function Home({
           </p>
 
           <button
-            onClick={() => {
-              onClose();
-              navigate(slide.path);
-            }}
+            onClick={() => navigate("/fashion")}
           >
             Shop Now →
           </button>
@@ -317,6 +317,7 @@ function Home({
 ========================= */
 
 function App() {
+  const navigate = useNavigate();
   const [showPromo, setShowPromo] = useState(true);
   const [cart, setCart] = useState([]);
   const [wishlist, setWishlist] = useState([]);
@@ -338,9 +339,116 @@ function App() {
 
 
   /* =========================
-     FETCH PRODUCTS
-  ========================= */
+      placeOrder
+    ========================= */
+  const placeOrder = () => {
 
+    // ========================= LOGIN CHECK =========================
+
+    const user =
+      JSON.parse(
+        localStorage.getItem("novaUser")
+      );
+
+    if (!user) {
+      setToast({
+        type: "error",
+        title: "Login Required",
+        message: "Please login before placing your order.",
+      });
+
+      setTimeout(() => {
+        setToast(null);
+        navigate("/login");
+      }, 1500);
+
+      return;
+    }
+
+
+    // ========================= EMPTY CART CHECK =========================
+
+    if (cart.length === 0) {
+      return;
+    }
+
+
+    // ========================= TOTAL =========================
+
+    const total = cart.reduce(
+      (sum, item) =>
+        sum + item.price * item.quantity,
+      0
+    );
+
+
+    // ========================= CREATE ORDER =========================
+
+    const order = {
+
+      id: `NC${Date.now()}`,
+
+      items: cart.map((item) => ({
+        ...item,
+      })),
+
+      total: Math.round(total * 83),
+
+      status: "placed",
+
+      createdAt:
+        new Date().toISOString(),
+
+      timeline: [
+        {
+          status: "placed",
+          label: "Order Placed",
+          date:
+            new Date().toISOString(),
+        },
+      ],
+
+      // USER INFORMATION
+      userEmail: user.email,
+      userName: user.name,
+
+    };
+
+
+    // ========================= SAVE ORDER =========================
+
+    const existingOrders =
+      JSON.parse(
+        localStorage.getItem("novaOrders")
+      ) || [];
+
+
+    localStorage.setItem(
+      "novaOrders",
+      JSON.stringify([
+        ...existingOrders,
+        order,
+      ])
+    );
+
+
+    // ========================= EMPTY CART =========================
+
+    setCart([]);
+
+
+    // ========================= CONFIRMATION =========================
+
+    navigate(
+      "/order-confirmation",
+      {
+        state: {
+          order,
+        },
+      }
+    );
+  };
+  /* ========================= FETCH PRODUCTS ========================= */
   useEffect(() => {
 
     fetch(
@@ -372,9 +480,7 @@ function App() {
   }, []);
 
 
-  /* =========================
-     ADD TO CART
-  ========================= */
+  /* ========================= ADD TO CART ========================= */
   const addToCart = (product) => {
     if (product.stock <= 0) {
       setToast({
@@ -431,9 +537,7 @@ function App() {
     });
   };
 
-  /* =========================
-     WISHLIST
-  ========================= */
+  /* ========================= WISHLIST ========================= */
 
   const toggleWishlist = (product) => {
 
@@ -472,9 +576,7 @@ function App() {
   };
 
 
-  /* =========================
-     CART FUNCTIONS
-  ========================= */
+  /* ========================= CART FUNCTIONS ========================= */
 
   const removeFromCart = (id) => {
 
@@ -525,9 +627,7 @@ function App() {
   };
 
 
-  /* =========================
-     CART COUNT
-  ========================= */
+  /* ========================= CART COUNT ========================= */
 
   const cartCount = cart.reduce(
     (sum, item) =>
@@ -535,15 +635,7 @@ function App() {
     0
   );
 
-
-
-
-
-
-
-  /* =========================
-     RETURN
-  ========================= */
+  /* ========================= RETURN ========================= */
 
   return (
     <>
@@ -756,8 +848,23 @@ function App() {
               removeFromCart={removeFromCart}
               increaseQuantity={increaseQuantity}
               decreaseQuantity={decreaseQuantity}
+              placeOrder={placeOrder}
             />
           }
+        />
+        <Route
+          path="/order-confirmation"
+          element={<OrderConfirmation />}
+        />
+
+
+        <Route
+          path="/orders/:orderId"
+          element={<TrackOrder />}
+        />
+        <Route
+          path="/my-orders"
+          element={<MyOrders />}
         />
 
         <Route
@@ -772,10 +879,34 @@ function App() {
         />
 
 
-        {/* =========================
-    NOVACART INFORMATION PAGES
-========================= */}
+        <Route
+          path="/offers"
+          element={
+            <div className="offers-page">
+              <h1>🔥 Offer Zone</h1>
 
+              <p>
+                Grab the best deals and exciting offers on NovaCart.
+              </p>
+
+              <button onClick={() => navigate("/fashion")}>
+                Shop Fashion Offers →
+              </button>
+
+              <button onClick={() => navigate("/beauty")}>
+                Shop Beauty Offers →
+              </button>
+
+              <button onClick={() => navigate("/mobiles")}>
+                Shop Mobile Offers →
+              </button>
+            </div>
+          }
+        />
+
+
+
+        {/* ========================= NOVACART INFORMATION PAGES ========================= */}
         <Route
           path="/about"
           element={<FooterPage type="about" />}
@@ -909,20 +1040,6 @@ function PromoPopup({ onClose }) {
     },
   ];
 
-  // // NEXT
-  // const nextSlide = () => {
-  //   setCurrent((prev) =>
-  //     prev === slides.length - 1 ? 0 : prev + 1
-  //   );
-  // };
-
-  // // PREVIOUS
-  // const prevSlide = () => {
-  //   setCurrent((prev) =>
-  //     prev === 0 ? slides.length - 1 : prev - 1
-  //   );
-  // };
-
   useEffect(() => {
     const slider = setInterval(() => {
       setCurrent((prev) =>
@@ -939,10 +1056,7 @@ function PromoPopup({ onClose }) {
   // SHOP NOW
   const handleShopNow = () => {
     onClose();
-
-    setTimeout(() => {
-      navigate(slide.path);
-    }, 100);
+    navigate(slide.path);
   };
 
   return (

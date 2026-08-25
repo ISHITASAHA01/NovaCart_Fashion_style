@@ -1,0 +1,157 @@
+.order-confirm-page {
+    min-height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    background: #f5f7fa;
+}
+
+.order-confirm-card {
+    width: 100%;
+    max-width: 520px;
+    background: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.order-close {
+    position: absolute;
+    right: 16px;
+    top: 12px;
+
+    border: none;
+    background: transparent;
+
+    font-size: 28px;
+    color: #64748b;
+    cursor: pointer;
+}
+
+.success-icon {
+    width: 70px;
+    height: 70px;
+
+    margin: 0 auto 20px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #16a34a;
+    color: white;
+
+    font-size: 38px;
+    font-weight: 700;
+}
+
+.order-confirm-card h1 {
+    margin: 0 0 10px;
+    font-size: 28px;
+    color: #212121;
+}
+
+.confirm-message {
+    margin: 0 0 24px;
+    color: #64748b;
+}
+
+.order-number {
+    padding: 14px;
+    background: #f8fafc;
+    border-radius: 4px;
+    margin-bottom: 20px;
+
+    color: #64748b;
+}
+
+.order-number strong {
+    margin-left: 6px;
+    color: #212121;
+}
+
+.confirmation-details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+
+    padding: 20px 0;
+}
+
+.confirmation-details div {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.confirmation-details span {
+    font-size: 13px;
+    color: #64748b;
+}
+
+.confirmation-details strong {
+    font-size: 16px;
+    color: #212121;
+}
+
+.confirmation-details .free {
+    color: #16a34a;
+}
+
+.confirmation-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 24px;
+}
+
+.track-btn,
+.continue-btn {
+    width: 100%;
+    padding: 13px;
+
+    border-radius: 4px;
+
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.track-btn {
+    border: none;
+    background: #2874f0;
+    color: white;
+}
+
+.track-btn:hover {
+    background: #1765df;
+}
+
+.continue-btn {
+    border: 1px solid #2874f0;
+    background: white;
+    color: #2874f0;
+}
+
+@media (max-width: 500px) {
+
+    .order-confirm-card {
+        padding: 30px 20px;
+    }
+
+    .confirmation-details {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .order-confirm-card h1 {
+        font-size: 24px;
+    }
+}

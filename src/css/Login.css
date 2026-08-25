@@ -122,6 +122,37 @@
   text-decoration: none;
   
 }
+
+.password-input-box {
+    position: relative;
+    width: 100%;
+}
+
+.password-input-box input {
+    width: 100%;
+    padding-right: 45px;
+    box-sizing: border-box;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    border: none;
+    background: transparent;
+    padding: 0;
+
+    cursor: pointer;
+    font-size: 18px;
+}
+
+
+
+
+
+
 /* =========================
    SIGNUP ADDRESS
 ========================= */

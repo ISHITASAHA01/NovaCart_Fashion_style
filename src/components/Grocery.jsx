@@ -326,7 +326,7 @@ function Grocery({
                                 })
                         }
                     >
-                        Shop Grocery →
+                        Shop Now →
                     </button>
                 </div>
 

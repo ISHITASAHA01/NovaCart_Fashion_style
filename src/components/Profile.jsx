@@ -120,168 +120,7 @@ function Profile() {
 
 
                 {/* =========================
-                    EDIT MODE
-                ========================= */}
-
-                {isEditing ? (
-
-                    <div className="profile-edit-form">
-
-                        <label>Name</label>
-
-                        <input
-                            name="name"
-                            value={formData.name}
-                            onChange={handleChange}
-                        />
-
-
-                        <label>Email</label>
-
-                        <input
-                            type="email"
-                            name="email"
-                            value={formData.email}
-                            onChange={handleChange}
-                        />
-
-
-                        <label>Age</label>
-
-                        <input
-                            type="number"
-                            name="age"
-                            value={formData.age}
-                            onChange={handleChange}
-                        />
-
-
-                        <label>Gender</label>
-
-                        <select
-                            name="gender"
-                            value={formData.gender}
-                            onChange={handleChange}
-                        >
-                            <option value="">
-                                Select Gender
-                            </option>
-
-                            <option value="Female">
-                                Female
-                            </option>
-
-                            <option value="Male">
-                                Male
-                            </option>
-
-                            <option value="Other">
-                                Other
-                            </option>
-
-                            <option value="Prefer not to say">
-                                Prefer not to say
-                            </option>
-                        </select>
-
-
-                        <label>Address</label>
-
-                        <textarea
-                            name="address"
-                            value={formData.address}
-                            onChange={handleChange}
-                            rows="3"
-                        />
-
-
-                        <div className="edit-buttons">
-
-                            <button
-                                className="save-btn"
-                                onClick={handleSave}
-                            >
-                                ✓ Save Changes
-                            </button>
-
-                            <button
-                                className="cancel-btn"
-                                onClick={() => {
-                                    setFormData(user);
-                                    setIsEditing(false);
-                                }}
-                            >
-                                Cancel
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                ) : (
-
-                    /* =========================
-                       PROFILE VIEW
-                    ========================= */
-
-                    <div className="profile-info">
-
-                        <div>
-                            <span>👤</span>
-
-                            <div>
-                                <small>Name</small>
-                                <b>{user.name}</b>
-                            </div>
-                        </div>
-
-
-                        <div>
-                            <span>📧</span>
-
-                            <div>
-                                <small>Email</small>
-                                <b>{user.email}</b>
-                            </div>
-                        </div>
-
-
-                        <div>
-                            <span>🎂</span>
-
-                            <div>
-                                <small>Age</small>
-                                <b>{user.age}</b>
-                            </div>
-                        </div>
-
-
-                        <div>
-                            <span>⚧️</span>
-
-                            <div>
-                                <small>Gender</small>
-                                <b>{user.gender}</b>
-                            </div>
-                        </div>
-
-
-                        <div>
-                            <span>📍</span>
-
-                            <div>
-                                <small>Address</small>
-                                <b>{user.address}</b>
-                            </div>
-                        </div>
-
-                    </div>
-
-                )}
-
-
-                {/* =========================
-                    PROFILE ACTIONS
+                    EDIT MODE PROFILE FORM
                 ========================= */}
 
                 {!isEditing && (
@@ -296,6 +135,12 @@ function Profile() {
                             ✏️ Edit Profile
                         </button>
 
+                        <button
+                            className="my-orders-btn"
+                            onClick={() => navigate("/my-orders")}
+                        >
+                            📦 My Orders
+                        </button>
 
                         <button
                             className="logout-btn"
@@ -303,7 +148,6 @@ function Profile() {
                         >
                             🚪 Logout
                         </button>
-
 
                         <button
                             className="delete-btn"
@@ -314,7 +158,6 @@ function Profile() {
 
                     </div>
                 )}
-
 
                 {/* CONTINUE SHOPPING */}
 

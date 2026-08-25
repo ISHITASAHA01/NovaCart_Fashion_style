@@ -7,10 +7,16 @@ function Signup() {
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
+    const [mobile, setMobile] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [dateOfBirth, setDateOfBirth] = useState("");
     const [gender, setGender] = useState("");
     const [address, setAddress] = useState("");
+
+    // Password show / hide
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     // =========================
     // CALCULATE AGE
@@ -51,12 +57,26 @@ function Signup() {
         if (
             !name ||
             !email ||
+            !mobile ||
             !password ||
+            !confirmPassword ||
             !dateOfBirth ||
             !gender ||
             !address
         ) {
             alert("Please fill all required fields.");
+            return;
+        }
+
+        // Mobile number validation
+        if (!/^[0-9]{10}$/.test(mobile)) {
+            alert("Please enter a valid 10-digit mobile number.");
+            return;
+        }
+
+        // Password match
+        if (password !== confirmPassword) {
+            alert("Password and Confirm Password do not match.");
             return;
         }
 
@@ -70,6 +90,7 @@ function Signup() {
         const user = {
             name,
             email,
+            mobile,
             password,
             dateOfBirth,
             age,
@@ -133,19 +154,90 @@ function Signup() {
                     />
 
 
+                    {/* MOBILE */}
+
+                    <label>Mobile Number *</label>
+
+                    <input
+                        type="tel"
+                        placeholder="Enter 10-digit mobile number"
+                        value={mobile}
+                        onChange={(e) =>
+                            setMobile(
+                                e.target.value.replace(/\D/g, "")
+                            )
+                        }
+                        maxLength="10"
+                        required
+                    />
+
+
                     {/* PASSWORD */}
 
                     <label>Password *</label>
 
-                    <input
-                        type="password"
-                        placeholder="Create a password"
-                        value={password}
-                        onChange={(e) =>
-                            setPassword(e.target.value)
-                        }
-                        required
-                    />
+                    <div className="password-input-box">
+
+                        <input
+                            type={
+                                showPassword
+                                    ? "text"
+                                    : "password"
+                            }
+                            placeholder="Create a password"
+                            value={password}
+                            onChange={(e) =>
+                                setPassword(e.target.value)
+                            }
+                            required
+                        />
+
+                        <button
+                            type="button"
+                            className="password-toggle"
+                            onClick={() =>
+                                setShowPassword(!showPassword)
+                            }
+                        >
+                            {showConfirmPassword ? "👁️ " : "🙈"}
+                        </button>
+
+                    </div>
+
+
+                    {/* CONFIRM PASSWORD */}
+
+                    <label>Confirm Password *</label>
+
+                    <div className="password-input-box">
+
+                        <input
+                            type={
+                                showConfirmPassword
+                                    ? "text"
+                                    : "password"
+                            }
+                            placeholder="Confirm your password"
+                            value={confirmPassword}
+                            onChange={(e) =>
+                                setConfirmPassword(e.target.value)
+                            }
+                            required
+                        />
+
+                        <button
+                            type="button"
+                            className="password-toggle"
+                            onClick={() =>
+                                setShowConfirmPassword(
+                                    !showConfirmPassword
+                                )
+                            }
+                        >
+                            {showConfirmPassword ? "👁️ " : "🙈"}
+                        </button>
+
+                    </div>
 
 
                     {/* DATE OF BIRTH */}
@@ -205,6 +297,7 @@ function Signup() {
                     <label>Address *</label>
 
                     <div className="signup-address-box">
+
                         <span>📍</span>
 
                         <textarea
@@ -216,10 +309,12 @@ function Signup() {
                             rows="3"
                             required
                         />
+
                     </div>
 
 
                     {/* SUBMIT */}
+
                     <button
                         type="submit"
                         className="auth-submit"
