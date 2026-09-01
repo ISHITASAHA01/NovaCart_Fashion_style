@@ -21,6 +21,7 @@ import {
     FiTag,
     FiHeadphones,
     FiChevronRight,
+    FiShoppingCart
 } from "react-icons/fi";
 
 import "../css/Profile.css";
@@ -303,24 +304,17 @@ function Profile() {
     if (!user) {
         return (
             <div className="profile-page">
-                <div className="profile-login-card">
+                <div className="cart-loader">
+                    <div className="cart-running">
+                        <span className="speed-line line-1"></span>
+                        <span className="speed-line line-2"></span>
+                        <span className="speed-line line-3"></span>
 
-                    <div className="profile-login-icon">
-                        <FiUser />
+                        <FiShoppingCart className="cart-icon" /></div>
+
+                    <div className="loading-track">
+                        <div className="loading-bar"></div>
                     </div>
-
-                    <h2>Please Login First</h2>
-
-                    <p>
-                        Login to view your profile and orders.
-                    </p>
-
-                    <button
-                        onClick={() => navigate("/login")}
-                    >
-                        Go to Login
-                    </button>
-
                 </div>
             </div>
         );
