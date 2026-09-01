@@ -257,3 +257,17 @@
 
   padding-right: 40px;
 }
+.back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #6c63ff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.2s ease;
+}
+
+.back-link:hover {
+    color: #4f46e5;
+    transform: translateX(-3px);
+}

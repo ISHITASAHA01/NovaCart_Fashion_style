@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 
+
 import "./App.css";
 import "./css/Toast.css";
 import { FcGoogle } from "react-icons/fc";
@@ -714,6 +715,7 @@ function App() {
           path="/profile"
           element={<Profile />}
         />
+
         <Route
           path="/grocery"
           element={

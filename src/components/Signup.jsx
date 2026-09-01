@@ -18,6 +18,9 @@ function Signup() {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+    // Loading state
+    const [loading, setLoading] = useState(false);
+
     // =========================
     // CALCULATE AGE
     // =========================
@@ -51,9 +54,10 @@ function Signup() {
     // SIGNUP
     // =========================
 
-    const handleSignup = (e) => {
+    const handleSignup = async (e) => {
         e.preventDefault();
 
+        // Check required fields
         if (
             !name ||
             !email ||
@@ -80,31 +84,103 @@ function Signup() {
             return;
         }
 
+        // Calculate age
         const age = calculateAge(dateOfBirth);
 
+        // Minimum age validation
         if (age < 13) {
             alert("You must be at least 13 years old.");
             return;
         }
 
-        const user = {
-            name,
-            email,
-            mobile,
-            password,
-            dateOfBirth,
-            age,
-            gender,
-            address,
-            image: "https://i.pravatar.cc/150?img=12",
-        };
+        try {
+            setLoading(true);
 
-        localStorage.setItem(
-            "novaUser",
-            JSON.stringify(user)
-        );
+            // =========================
+            // BACKEND SIGNUP API
+            // =========================
 
-        navigate("/profile");
+            const response = await fetch(
+                "https://novacart-oeq5.onrender.com/api/auth/signup",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+
+                    body: JSON.stringify({
+                        fullName: name,
+                        email: email,
+                        mobileNumber: mobile,
+                        password: password,
+                        confirmPassword: confirmPassword,
+                        dateOfBirth: dateOfBirth,
+                        gender: gender,
+                        address: address,
+                    }),
+                }
+            );
+
+            const data = await response.json();
+
+            // =========================
+            // HANDLE ERROR
+            // =========================
+
+            if (!response.ok) {
+                alert(
+                    data.message ||
+                    "Signup failed. Please try again."
+                );
+                return;
+            }
+
+            // =========================
+            // SAVE USER
+            // =========================
+
+            const user = {
+                name: data.user?.name || name,
+                email: data.user?.email || email,
+                mobile: data.user?.mobile || mobile,
+                dateOfBirth: dateOfBirth,
+                age: age,
+                gender: gender,
+                address: address,
+                image: "https://i.pravatar.cc/150?img=12",
+            };
+
+
+            localStorage.setItem(
+                "novaUser",
+                JSON.stringify(user)
+            );
+            // Save token if backend sends one
+            if (data.token) {
+                localStorage.setItem(
+                    "token",
+                    data.token
+                );
+            }
+
+            alert(
+                data.message ||
+                "Account created successfully!"
+            );
+
+            // Go to profile
+            navigate("/profile");
+
+        } catch (error) {
+            console.error("Signup error:", error);
+
+            alert(
+                "Unable to connect to the server. Please try again."
+            );
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -112,9 +188,26 @@ function Signup() {
 
             <div className="auth-card">
 
+                {/* =========================
+                    BACK LINK
+                ========================= */}
+
+                <Link
+                    to="/"
+                    className="back-link"
+                >
+                    ← Back to Home
+                </Link>
+
+
+                {/* =========================
+                    LOGO
+                ========================= */}
+
                 <div className="auth-logo">
                     ✦ <span>Nova<span>Cart</span></span>
                 </div>
+
 
                 <h1>Create Account ✨</h1>
 
@@ -122,9 +215,12 @@ function Signup() {
                     Join NovaCart and start shopping
                 </p>
 
+
                 <form onSubmit={handleSignup}>
 
-                    {/* NAME */}
+                    {/* =========================
+                        NAME
+                    ========================= */}
 
                     <label>Full Name *</label>
 
@@ -139,7 +235,9 @@ function Signup() {
                     />
 
 
-                    {/* EMAIL */}
+                    {/* =========================
+                        EMAIL
+                    ========================= */}
 
                     <label>Email *</label>
 
@@ -154,7 +252,9 @@ function Signup() {
                     />
 
 
-                    {/* MOBILE */}
+                    {/* =========================
+                        MOBILE
+                    ========================= */}
 
                     <label>Mobile Number *</label>
 
@@ -172,7 +272,9 @@ function Signup() {
                     />
 
 
-                    {/* PASSWORD */}
+                    {/* =========================
+                        PASSWORD
+                    ========================= */}
 
                     <label>Password *</label>
 
@@ -199,13 +301,15 @@ function Signup() {
                                 setShowPassword(!showPassword)
                             }
                         >
-                            {showConfirmPassword ? "👁️ " : "🙈"}
+                            {showPassword ? "👁️" : "🙈"}
                         </button>
 
                     </div>
 
 
-                    {/* CONFIRM PASSWORD */}
+                    {/* =========================
+                        CONFIRM PASSWORD
+                    ========================= */}
 
                     <label>Confirm Password *</label>
 
@@ -234,13 +338,15 @@ function Signup() {
                                 )
                             }
                         >
-                            {showConfirmPassword ? "👁️ " : "🙈"}
+                            {showConfirmPassword ? "👁️" : "🙈"}
                         </button>
 
                     </div>
 
 
-                    {/* DATE OF BIRTH */}
+                    {/* =========================
+                        DATE OF BIRTH
+                    ========================= */}
 
                     <label>Date of Birth *</label>
 
@@ -259,7 +365,9 @@ function Signup() {
                     />
 
 
-                    {/* GENDER */}
+                    {/* =========================
+                        GENDER
+                    ========================= */}
 
                     <label>Gender *</label>
 
@@ -292,7 +400,9 @@ function Signup() {
                     </select>
 
 
-                    {/* ADDRESS */}
+                    {/* =========================
+                        ADDRESS
+                    ========================= */}
 
                     <label>Address *</label>
 
@@ -313,17 +423,26 @@ function Signup() {
                     </div>
 
 
-                    {/* SUBMIT */}
+                    {/* =========================
+                        SUBMIT
+                    ========================= */}
 
                     <button
                         type="submit"
                         className="auth-submit"
+                        disabled={loading}
                     >
-                        Create Account
+                        {loading
+                            ? "Creating Account..."
+                            : "Create Account"}
                     </button>
 
                 </form>
 
+
+                {/* =========================
+                    LOGIN LINK
+                ========================= */}
 
                 <p className="signup-text">
                     Already have an account?{" "}

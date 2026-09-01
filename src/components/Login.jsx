@@ -7,9 +7,9 @@ function Login() {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
 
-
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
 
         if (!email || !password) {
@@ -17,22 +17,72 @@ function Login() {
             return;
         }
 
-        // Temporary login
-        localStorage.setItem(
-            "novaUser",
-            JSON.stringify({
-                name: email.split("@")[0],
-                email: email,
-            })
-        );
+        try {
+            setLoading(true);
 
-        navigate("/profile");
+            const response = await fetch(
+                "https://novacart-oeq5.onrender.com/api/auth/login",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password,
+                    }),
+                }
+            );
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                alert(data.message || "Login failed.");
+                return;
+            }
+
+            // Save logged-in user
+            const loggedInUser = {
+                fullName:
+                    data.user?.fullName ||
+                    data.user?.name ||
+                    email.split("@")[0],
+
+                email:
+                    data.user?.email ||
+                    email,
+            };
+
+            localStorage.setItem(
+                "novaUser",
+                JSON.stringify(loggedInUser)
+            );
+
+            // Save token
+            if (data.token) {
+                localStorage.setItem("token", data.token);
+            }
+
+            // Go to profile after successful login
+            navigate("/profile");
+
+        } catch (error) {
+            console.error("Login error:", error);
+            alert("Unable to connect to the server.");
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
         <div className="auth-page">
 
             <div className="auth-card">
+
+                {/* Back Link */}
+                <Link to="/" className="back-link">
+                    ← Back to Home
+                </Link>
 
                 <div className="auth-logo">
                     ✦ <span>Nova<span>Cart</span></span>
@@ -64,8 +114,12 @@ function Login() {
                         onChange={(e) => setPassword(e.target.value)}
                     />
 
-                    <button className="auth-submit">
-                        Login
+                    <button
+                        type="submit"
+                        className="auth-submit"
+                        disabled={loading}
+                    >
+                        {loading ? "Logging in..." : "Login"}
                     </button>
 
                 </form>
@@ -76,15 +130,15 @@ function Login() {
 
                 <div className="social-login">
 
-                    <button className="google-btn">
+                    <button type="button" className="google-btn">
                         🔴 Continue with Google
                     </button>
 
-                    <button className="facebook-btn">
+                    <button type="button" className="facebook-btn">
                         🔵 Continue with Facebook
                     </button>
 
-                    <button className="instagram-btn">
+                    <button type="button" className="instagram-btn">
                         🟣 Continue with Instagram
                     </button>
 

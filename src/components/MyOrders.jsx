@@ -365,7 +365,7 @@ function MyOrders() {
                                                 <button
                                                     className="cancel-order-btn"
                                                     onClick={() =>
-                                                        handleCancel(order.id)
+                                                        openCancelModal(order.id)
                                                     }
                                                 >
                                                     Cancel Order
