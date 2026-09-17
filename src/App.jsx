@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 
 
 import "./App.css";
@@ -26,6 +26,7 @@ import FooterPage from "./components/FooterPages";
 import Footer from "./components/Footer";
 import ProductDetails from "./components/ProductDetails";
 import ScrollToTop from "./components/ScrollToTop";
+// import AdminPanel from "./components/AdminPanel";
 
 /* =========================
    HOME PAGE
@@ -110,9 +111,6 @@ function Home({
       );
 
     });
-
-
-
 
     if (sortBy === "low") {
       result.sort((a, b) => a.price - b.price);
@@ -319,6 +317,8 @@ function Home({
 
 function App() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith("/admin");
   const [showPromo, setShowPromo] = useState(true);
   const [cart, setCart] = useState([]);
   const [wishlist, setWishlist] = useState([]);
@@ -449,35 +449,98 @@ function App() {
       }
     );
   };
-  /* ========================= FETCH PRODUCTS ========================= */
-  useEffect(() => {
+  /* =========================
+      VERIFY LOGGED-IN USER
+  ========================= */
+  const verifyUserToken = async () => {
+    const token = localStorage.getItem("token");
 
-    fetch(
-      "https://dummyjson.com/products?limit=0"
-    )
-      .then((res) => {
+    if (!token) {
+      localStorage.removeItem("novaUser");
+      return;
+    }
 
-        if (!res.ok) {
-          throw new Error();
+    try {
+      const res = await fetch(
+        "https://novacart-oeq5.onrender.com/api/auth/profile",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
         }
+      );
 
+      if (!res.ok) {
+        throw new Error("Invalid or expired token");
+      }
+
+      const data = await res.json();
+
+      // Backend response me user kis key me aa raha hai
+      const user = data.user || data.profile || data;
+
+      if (!user) {
+        throw new Error("User profile not found");
+      }
+
+      // Backend ki verified information hi save hogi
+      localStorage.setItem(
+        "novaUser",
+        JSON.stringify(user)
+      );
+
+      // Navbar / other components ko update karne ke liye
+      window.dispatchEvent(
+        new Event("novaUserChanged")
+      );
+
+    } catch (error) {
+      console.error("User verification failed:", error);
+
+      // Token invalid hai to purani/fake information bhi hata do
+      localStorage.removeItem("token");
+      localStorage.removeItem("novaUser");
+
+      window.dispatchEvent(
+        new Event("novaUserChanged")
+      );
+    }
+  };
+
+
+
+  /* ========================= FETCH PRODUCTS ========================= */
+  const loadProducts = () => {
+    setLoading(true);
+    fetch("https://dummyjson.com/products?limit=0")
+      .then((res) => {
+        if (!res.ok) throw new Error();
         return res.json();
       })
-
       .then((data) => {
-        setProducts(data.products);
+        localStorage.setItem("novaCachedProducts", JSON.stringify(data.products));
+        const adminProducts = JSON.parse(localStorage.getItem("novaAdminProducts") || "[]");
+        const deleted = new Set(JSON.parse(localStorage.getItem("novaDeletedProducts") || "[]"));
+        const byId = new Map(data.products.filter((p) => !deleted.has(p.id)).map((p) => [p.id, p]));
+        adminProducts.forEach((p) => byId.set(p.id, { ...byId.get(p.id), ...p }));
+        setProducts(Array.from(byId.values()));
+        setError("");
       })
+      .catch(() => setError("Products load nahi ho paaye."))
+      .finally(() => setLoading(false));
+  };
 
-      .catch(() => {
-        setError(
-          "Products load nahi ho paaye."
-        );
-      })
+  useEffect(() => {
+    verifyUserToken();
+    loadProducts();
+  }, []);
 
-      .finally(() => {
-        setLoading(false);
-      });
-
+  useEffect(() => {
+    const syncProducts = () => loadProducts();
+    window.addEventListener("novaStoreChanged", syncProducts);
+    return () => window.removeEventListener("novaStoreChanged", syncProducts);
   }, []);
 
 
@@ -640,23 +703,24 @@ function App() {
 
   return (
     <>
-      {showPromo && (
+      {!isAdminRoute && showPromo && (
         <PromoPopup
           onClose={() => setShowPromo(false)}
         />
       )}
 
-      {/* ONLY ONE NAVBAR */}
-      <Navbar
-        cartCount={cartCount}
-        wishlistCount={wishlist.length}
-        search={search}
-        setSearch={setSearch}
-        setCategory={setCategory}
-      />
+      {!isAdminRoute && (
+        <Navbar
+          cartCount={cartCount}
+          wishlistCount={wishlist.length}
+          search={search}
+          setSearch={setSearch}
+          setCategory={setCategory}
+        />
+      )}
 
       {/* TOAST */}
-      {toast && (
+      {toast && !isAdminRoute && (
         <div className={`toast toast-${toast.type}`}>
           <div className="toast-icon">
             {toast.type === "success" && "✓"}
@@ -682,6 +746,8 @@ function App() {
 
       {/* ROUTES */}
       <Routes>
+
+        {/* <Route path="/admin/*" element={<AdminPanel />} /> */}
 
         <Route
           path="/"
@@ -835,6 +901,132 @@ function App() {
               title="Mobiles"
               emoji="📱"
               description="Explore smartphones and mobile accessories."
+              addToCart={addToCart}
+              toggleWishlist={toggleWishlist}
+              wishlist={wishlist}
+            />
+          }
+        />
+        <Route
+          path="/electronics"
+          element={
+            <CategoryPage
+              products={products}
+              loading={loading}
+              error={error}
+              search={search}
+              category="electronics"
+              title="Electronics"
+              emoji="💻"
+              description="Discover smartphones, laptops, tablets and mobile accessories."
+              addToCart={addToCart}
+              toggleWishlist={toggleWishlist}
+              wishlist={wishlist}
+            />
+          }
+        />
+        <Route
+          path="/smartphones"
+          element={
+            <CategoryPage
+              products={products}
+              loading={loading}
+              error={error}
+              search={search}
+              category="smartphones"
+              title="Smartphones"
+              emoji="📱"
+              description="Explore the latest smartphones at great prices."
+              addToCart={addToCart}
+              toggleWishlist={toggleWishlist}
+              wishlist={wishlist}
+            />
+          }
+        />
+        <Route
+          path="/mobile-accessories"
+          element={
+            <CategoryPage
+              products={products}
+              loading={loading}
+              error={error}
+              search={search}
+              category="mobile-accessories"
+              title="Mobile Accessories"
+              emoji="🔌"
+              description="Chargers, cables and other mobile accessories."
+              addToCart={addToCart}
+              toggleWishlist={toggleWishlist}
+              wishlist={wishlist}
+            />
+          }
+        />
+        <Route
+          path="/tablets"
+          element={
+            <CategoryPage
+              products={products}
+              loading={loading}
+              error={error}
+              search={search}
+              category="tablets"
+              title="Tablets"
+              emoji="📲"
+              description="Find tablets for work, study and entertainment."
+              addToCart={addToCart}
+              toggleWishlist={toggleWishlist}
+              wishlist={wishlist}
+            />
+          }
+        />
+        <Route
+          path="/watches"
+          element={
+            <CategoryPage
+              products={products}
+              loading={loading}
+              error={error}
+              search={search}
+              category="mens-watches"
+              title="Watches"
+              emoji="⌚"
+              description="Stylish watches for every occasion."
+              addToCart={addToCart}
+              toggleWishlist={toggleWishlist}
+              wishlist={wishlist}
+            />
+          }
+        />
+        <Route
+          path="/sports"
+          element={
+            <CategoryPage
+              products={products}
+              loading={loading}
+              error={error}
+              search={search}
+              category="sports-accessories"
+              title="Sports Accessories"
+              emoji="⚽"
+              description="Sports accessories and fitness essentials."
+              addToCart={addToCart}
+              toggleWishlist={toggleWishlist}
+              wishlist={wishlist}
+            />
+          }
+        />
+        <Route
+          path="/home-decoration"
+          element={
+            <CategoryPage
+              products={products}
+              loading={loading}
+              error={error}
+              search={search}
+              category="home-decoration"
+              title="Home Decoration"
+              emoji="🏠"
+              description="Beautiful products to decorate your home."
               addToCart={addToCart}
               toggleWishlist={toggleWishlist}
               wishlist={wishlist}
@@ -1000,7 +1192,7 @@ function App() {
 
       </Routes>
 
-      <Footer />
+      {!isAdminRoute && <Footer />}
     </>
   );
 }

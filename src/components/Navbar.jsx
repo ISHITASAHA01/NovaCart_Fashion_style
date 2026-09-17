@@ -30,6 +30,8 @@ function Navbar({
   const [showOffers, setShowOffers] = useState(false);
   const [showCategories, setShowCategories] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [showAllCategories, setShowAllCategories] = useState(false);
+  const [activeChip, setActiveChip] = useState("All");
 
   // =====================================================
   // LOGGED-IN USER
@@ -84,18 +86,75 @@ function Navbar({
   // =====================================================
 
   const categories = [
-    { name: "Beauty", path: "/beauty" },
-    { name: "Fragrances", path: "/fragrances" },
-    { name: "Furniture", path: "/furniture" },
-    { name: "Home Decoration", path: "/furniture" },
-    { name: "Kitchen Accessories", path: "/kitchen" },
+    // Electronics
+    { name: "Electronics", path: "/electronics" },
+    { name: "Smartphones", path: "/smartphones" },
+    { name: "Mobile Accessories", path: "/mobile-accessories" },
     { name: "Laptops", path: "/laptops" },
+    { name: "Tablets", path: "/tablets" },
+
+    // Beauty
+    { name: "Beauty", path: "/beauty" },
+    { name: "Skin Care", path: "/beauty" },
+    { name: "Fragrances", path: "/fragrances" },
+
+    // Home
+    { name: "Furniture", path: "/furniture" },
+    { name: "Home Decoration", path: "/home-decoration" },
+
+    // Fashion
+    { name: "Fashion", path: "/fashion" },
     { name: "Mens Shirts", path: "/fashion?collection=shirts" },
     { name: "Mens Shoes", path: "/fashion?collection=shoes" },
-    { name: "Fashion", path: "/fashion" },
-    { name: "Mobiles", path: "/mobiles" },
+    { name: "Mens Watches", path: "/fashion?collection=watches" },
+    { name: "Womens Dresses", path: "/fashion?collection=dresses" },
+    { name: "Womens Shoes", path: "/fashion?collection=shoes" },
+    { name: "Womens Watches", path: "/fashion?collection=watches" },
+    { name: "Womens Bags", path: "/fashion?collection=bags" },
+    { name: "Jewellery", path: "/fashion?collection=jewellery" },
+    { name: "Tops", path: "/fashion?collection=tops" },
+    { name: "Sunglasses", path: "/fashion?collection=sunglasses" },
+
+    // Grocery
     { name: "Grocery", path: "/grocery" },
+
+    // Sports
+    { name: "Sports Accessories", path: "/sports" },
   ];
+
+  const categoryGroups = [
+    {
+      title: "Electronics", items: [
+        ["Electronics", "/electronics"], ["Smartphones", "/smartphones"],
+        ["Mobile Accessories", "/mobile-accessories"], ["Laptops", "/laptops"], ["Tablets", "/tablets"],
+      ]
+    },
+    {
+      title: "Beauty & Fragrances", items: [
+        ["Beauty", "/beauty"], ["Skin Care", "/beauty"], ["Fragrances", "/fragrances"],
+      ]
+    },
+    {
+      title: "Home", items: [
+        ["Furniture", "/furniture"], ["Home Decoration", "/home-decoration"],
+      ]
+    },
+    {
+      title: "Fashion", items: [
+        ["Fashion", "/fashion"], ["Mens Shirts", "/fashion?collection=shirts"], ["Mens Shoes", "/fashion?collection=shoes"],
+        ["Mens Watches", "/fashion?collection=watches"], ["Womens Dresses", "/fashion?collection=dresses"],
+        ["Womens Shoes", "/fashion?collection=shoes"], ["Womens Watches", "/fashion?collection=watches"],
+        ["Womens Bags", "/fashion?collection=bags"], ["Jewellery", "/fashion?collection=jewellery"],
+        ["Tops", "/fashion?collection=tops"], ["Sunglasses", "/fashion?collection=sunglasses"],
+      ]
+    },
+    {
+      title: "Grocery & Sports", items: [
+        ["Grocery", "/grocery"], ["Sports Accessories", "/sports"],
+      ]
+    },
+  ];
+
 
   // =====================================================
   // HOME
@@ -103,7 +162,15 @@ function Navbar({
 
   const goHome = () => {
     setCategory("All");
+    setActiveChip("All");
+    setShowAllCategories(false);
     navigate("/");
+  };
+
+  const handleCategoryClick = (label, path) => {
+    setActiveChip(label);
+    setShowAllCategories(false);
+    navigate(path);
   };
 
   // =====================================================
@@ -226,6 +293,15 @@ function Navbar({
 
           <div className="search-box">
 
+            <button
+              className="category-dropdown"
+              onClick={() => setShowAllCategories((value) => !value)}
+              aria-expanded={showAllCategories}
+            >
+              All Categories
+              <span style={{ fontSize: 12, marginLeft: 4 }}>▼</span>
+            </button>
+
             <input
               value={search}
               onChange={(e) =>
@@ -339,6 +415,18 @@ function Navbar({
 
         <div className="main-nav-inner">
 
+          {/* ALL CATEGORIES */}
+
+          <button
+            className={`all-category-btn ${showAllCategories ? "open" : ""}`}
+            onClick={() => setShowAllCategories((value) => !value)}
+            aria-expanded={showAllCategories}
+          >
+            <FiMenu />
+            <span>All Categories</span>
+            <span className="all-category-chevron">⌄</span>
+          </button>
+
           {/* HOME */}
 
           <button
@@ -354,9 +442,7 @@ function Navbar({
 
           <button
             className="main-nav-item"
-            onClick={() =>
-              navigate("/beauty")
-            }
+            onClick={() => handleCategoryClick("Beauty", "/beauty")}
           >
             💄 Beauty
           </button>
@@ -366,9 +452,7 @@ function Navbar({
 
           <button
             className="main-nav-item"
-            onClick={() =>
-              navigate("/fragrances")
-            }
+            onClick={() => handleCategoryClick("Fragrances", "/fragrances")}
           >
             🌸 Fragrances
           </button>
@@ -378,9 +462,7 @@ function Navbar({
 
           <button
             className="main-nav-item"
-            onClick={() =>
-              navigate("/furniture")
-            }
+            onClick={() => handleCategoryClick("Furniture", "/furniture")}
           >
             🛋️ Furniture
           </button>
@@ -390,9 +472,7 @@ function Navbar({
 
           <button
             className="main-nav-item"
-            onClick={() =>
-              navigate("/grocery")
-            }
+            onClick={() => handleCategoryClick("Grocery", "/grocery")}
           >
             🛒 Grocery
           </button>
@@ -402,9 +482,7 @@ function Navbar({
 
           <button
             className="main-nav-item"
-            onClick={() =>
-              navigate("/laptops")
-            }
+            onClick={() => handleCategoryClick("Laptops", "/laptops")}
           >
             💻 Laptops
           </button>
@@ -414,21 +492,16 @@ function Navbar({
 
           <button
             className="main-nav-item"
-            onClick={() =>
-              navigate("/fashion")
-            }
+            onClick={() => handleCategoryClick("Fashion", "/fashion")}
           >
             👗 Fashion
           </button>
-
 
           {/* MOBILES */}
 
           <button
             className="main-nav-item"
-            onClick={() =>
-              navigate("/mobiles")
-            }
+            onClick={() => handleCategoryClick("Mobiles", "/mobiles")}
           >
             📱 Mobiles
           </button>
@@ -459,7 +532,38 @@ function Navbar({
             Offer Zone
           </button>
 
+          {/* <button
+            className="admin-nav-btn"
+            onClick={() => navigate("/admin")}
+          >
+            ⚙️ Admin
+          </button> */}
+
         </div>
+
+        {/* =====================================================
+            ALL CATEGORIES DROPDOWN
+        ===================================================== */}
+
+        {showAllCategories && (
+          <div className="all-category-menu">
+            <div className="all-category-menu-inner">
+              {categoryGroups.map((group) => (
+                <div className="all-category-group" key={group.title}>
+                  <h4>{group.title}</h4>
+                  {group.items.map(([label, path]) => (
+                    <button
+                      key={`${group.title}-${label}`}
+                      onClick={() => handleCategoryClick(label, path)}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
 
         {/* =====================================================
@@ -574,115 +678,72 @@ function Navbar({
         <div className="category-chips">
 
           {/* ALL */}
-
           <button
-            className="category-chip active"
+            className={`category-chip ${activeChip === "All" ? "active" : ""}`}
             onClick={goHome}
           >
             All
           </button>
 
-
-          {/* BEAUTY */}
-
           <button
-            className="category-chip"
-            onClick={() =>
-              navigate("/beauty")
-            }
+            className={`category-chip ${activeChip === "Beauty" ? "active" : ""}`}
+            onClick={() => handleCategoryClick("Beauty", "/beauty")}
           >
             Beauty
           </button>
 
-
-          {/* FRAGRANCES */}
-
           <button
-            className="category-chip"
-            onClick={() =>
-              navigate("/fragrances")
-            }
+            className={`category-chip ${activeChip === "Fragrances" ? "active" : ""}`}
+            onClick={() => handleCategoryClick("Fragrances", "/fragrances")}
           >
             Fragrances
           </button>
 
-
-          {/* FURNITURE */}
-
           <button
-            className="category-chip"
-            onClick={() =>
-              navigate("/furniture")
-            }
+            className={`category-chip ${activeChip === "Furniture" ? "active" : ""}`}
+            onClick={() => handleCategoryClick("Furniture", "/furniture")}
           >
             Furniture
           </button>
 
-
-          {/* HOME DECORATION */}
-
           <button
-            className="category-chip"
-            onClick={() =>
-              navigate("/furniture")
-            }
+            className={`category-chip ${activeChip === "Home Decoration" ? "active" : ""}`}
+            onClick={() => handleCategoryClick("Home Decoration", "/home-decoration")}
           >
             Home Decoration
           </button>
 
-
-          {/* KITCHEN */}
-
-          <button className="category-chip">
+          <button
+            className={`category-chip ${activeChip === "Kitchen Accessories" ? "active" : ""}`}
+            onClick={() => handleCategoryClick("Kitchen Accessories", "/kitchen-accessories")}
+          >
             Kitchen Accessories
           </button>
 
-
-          {/* LAPTOPS */}
-
           <button
-            className="category-chip"
-            onClick={() =>
-              navigate("/laptops")
-            }
+            className={`category-chip ${activeChip === "Laptops" ? "active" : ""}`}
+            onClick={() => handleCategoryClick("Laptops", "/laptops")}
           >
             Laptops
           </button>
 
-
-          {/* MENS SHIRTS */}
-
           <button
-            className="category-chip"
-            onClick={() =>
-              navigate(
-                "/fashion?collection=shirts"
-              )
-            }
+            className={`category-chip ${activeChip === "Mens Shirts" ? "active" : ""}`}
+            onClick={() => handleCategoryClick("Mens Shirts", "/fashion?collection=shirts")}
           >
             Mens Shirts
           </button>
 
-
-          {/* MENS SHOES */}
-
           <button
-            className="category-chip"
-            onClick={() =>
-              navigate(
-                "/fashion?collection=shoes"
-              )
-            }
+            className={`category-chip ${activeChip === "Mens Shoes" ? "active" : ""}`}
+            onClick={() => handleCategoryClick("Mens Shoes", "/fashion?collection=shoes")}
           >
             Mens Shoes
           </button>
 
-
-          {/* VIEW ALL */}
-
           <button
             className="view-all-categories"
-            onClick={goHome}
+            onClick={() => setShowAllCategories(true)}
           >
             View All Categories →
           </button>
@@ -690,6 +751,7 @@ function Navbar({
         </div>
 
       </div>
+
 
     </>
   );

@@ -91,7 +91,6 @@ function Profile() {
                     "https://novacart-oeq5.onrender.com/api/auth/profile",
                     {
                         method: "GET",
-
                         headers: {
                             Authorization: `Bearer ${token}`,
                         },
@@ -105,83 +104,52 @@ function Profile() {
                 if (!response.ok) {
 
                     localStorage.removeItem("token");
+                    localStorage.removeItem("novaUser");
 
                     navigate("/login");
-
                     return;
                 }
 
-                // Backend se user
                 const userData = data.user;
 
                 console.log("USER DATA:", userData);
 
-
-                // =========================
-                // DATE OF BIRTH
-                // =========================
-
+                // Date of Birth
                 const dob = userData.dateOfBirth
                     ? userData.dateOfBirth.substring(0, 10)
                     : "";
 
-
-                // =========================
-                // AGE CALCULATE
-                // =========================
-
+                // Age
                 const age = calculateAge(dob);
 
-
-                // =========================
-                // USER DATA READY
-                // =========================
-
+                // Final user object
                 const formattedUser = {
                     ...userData,
                     dateOfBirth: dob,
                     age: age,
                 };
 
+                console.log("FINAL USER:", formattedUser);
 
-                console.log(
-                    "FINAL USER:",
-                    formattedUser
-                );
-
-
-                // =========================
-                // SAVE USER IN STATE
-                // =========================
-
+                // Profile state
                 setUser(formattedUser);
 
-
-                // =========================
-                // FORM DATA
-                // =========================
-
+                // Form state
                 setFormData({
-
                     name: formattedUser.fullName || "",
-
                     email: formattedUser.email || "",
-
                     mobile: formattedUser.mobileNumber || "",
-
-                    dateOfBirth:
-                        formattedUser.dateOfBirth || "",
-
-                    age:
-                        formattedUser.age || "",
-
-                    gender:
-                        formattedUser.gender || "",
-
-                    address:
-                        formattedUser.address || "",
-
+                    dateOfBirth: formattedUser.dateOfBirth || "",
+                    age: formattedUser.age || "",
+                    gender: formattedUser.gender || "",
+                    address: formattedUser.address || "",
                 });
+
+                // Keep novaUser in sync
+                localStorage.setItem(
+                    "novaUser",
+                    JSON.stringify(formattedUser)
+                );
 
             } catch (error) {
 
@@ -189,12 +157,32 @@ function Profile() {
                     "Profile error:",
                     error
                 );
-
             }
         };
 
 
+        // Initial backend profile load
         getProfile();
+
+
+        // =========================
+        // LISTEN FOR USER UPDATE
+        // =========================
+
+        const handleUserChanged = () => {
+
+            console.log(
+                "novaUserChanged received"
+            );
+
+            // Backend se fresh verified data lao
+            getProfile();
+        };
+
+        window.addEventListener(
+            "novaUserChanged",
+            handleUserChanged
+        );
 
 
         // =========================
@@ -208,8 +196,21 @@ function Profile() {
 
         setOrders(savedOrders);
 
-    }, [navigate]);
 
+        // =========================
+        // CLEANUP
+        // =========================
+
+        return () => {
+
+            window.removeEventListener(
+                "novaUserChanged",
+                handleUserChanged
+            );
+
+        };
+
+    }, [navigate]);
 
     /* =========================
        INPUT CHANGE
@@ -229,18 +230,43 @@ function Profile() {
     ========================= */
 
     const handleSave = () => {
+
         const updatedUser = {
             ...user,
-            ...formData,
+
+            fullName: formData.name,
+            email: formData.email,
+            mobileNumber: formData.mobile,
+            dateOfBirth: formData.dateOfBirth,
+            age: calculateAge(formData.dateOfBirth),
+            gender: formData.gender,
+            address: formData.address,
         };
 
+        // Local storage update
         localStorage.setItem(
             "novaUser",
             JSON.stringify(updatedUser)
         );
 
+        // React state update
         setUser(updatedUser);
-        setFormData(updatedUser);
+
+        setFormData({
+            name: updatedUser.fullName || "",
+            email: updatedUser.email || "",
+            mobile: updatedUser.mobileNumber || "",
+            dateOfBirth: updatedUser.dateOfBirth || "",
+            age: updatedUser.age || "",
+            gender: updatedUser.gender || "",
+            address: updatedUser.address || "",
+        });
+
+        // Notify App.jsx / other components
+        window.dispatchEvent(
+            new Event("novaUserChanged")
+        );
+
         setIsEditing(false);
 
         alert("Profile updated successfully! ✅");
@@ -251,10 +277,11 @@ function Profile() {
     ========================= */
 
     const handleCancel = () => {
+
         setFormData({
-            name: user.name || "",
+            name: user.fullName || "",
             email: user.email || "",
-            mobile: user.mobile || "",
+            mobile: user.mobileNumber || "",
             dateOfBirth: user.dateOfBirth || "",
             age: user.age || "",
             gender: user.gender || "",
@@ -263,7 +290,6 @@ function Profile() {
 
         setIsEditing(false);
     };
-
     /* =========================
        LOGOUT
     ========================= */

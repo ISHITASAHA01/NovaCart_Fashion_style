@@ -5,32 +5,140 @@ import "../App.css";
 import "../css/CategoryPage.css";
 
 const categoryGroups = {
-    beauty: ["beauty", "skin-care"],
+    // =========================
+    // ELECTRONICS
+    // =========================
+    electronics: [
+        "smartphones",
+        "mobile-accessories",
+        "laptops",
+        "tablets",
+    ],
 
-    fragrances: ["fragrances"],
+    smartphones: [
+        "smartphones",
+    ],
 
-    furniture: ["furniture", "home-decoration"],
+    "mobile-accessories": [
+        "mobile-accessories",
+    ],
 
-    laptops: ["laptops"],
+    laptops: [
+        "laptops",
+    ],
 
+    tablets: [
+        "tablets",
+    ],
+
+    // =========================
+    // BEAUTY
+    // =========================
+    beauty: [
+        "beauty",
+        "skin-care",
+    ],
+
+    "skin-care": [
+        "skin-care",
+    ],
+
+    fragrances: [
+        "fragrances",
+    ],
+
+    // =========================
+    // HOME
+    // =========================
+    furniture: [
+        "furniture",
+    ],
+
+    "home-decoration": [
+        "home-decoration",
+    ],
+
+    // =========================
+    // FASHION
+    // =========================
     fashion: [
         "mens-shirts",
         "mens-shoes",
         "mens-watches",
+
         "womens-dresses",
         "womens-shoes",
         "womens-watches",
+
+        "womens-bags",
+        "womens-jewellery",
+
         "tops",
         "sunglasses",
-        "womens-bags",
-        "mens-bags",
     ],
 
-    mobiles: [
-        "smartphones",
-        "mobile-accessories",
+    "mens-shirts": [
+        "mens-shirts",
+    ],
+
+    "mens-shoes": [
+        "mens-shoes",
+    ],
+
+    "mens-watches": [
+        "mens-watches",
+    ],
+
+    "womens-dresses": [
+        "womens-dresses",
+    ],
+
+    "womens-shoes": [
+        "womens-shoes",
+    ],
+
+    "womens-watches": [
+        "womens-watches",
+    ],
+
+    "womens-bags": [
+        "womens-bags",
+    ],
+
+    "womens-jewellery": [
+        "womens-jewellery",
+    ],
+
+    tops: [
+        "tops",
+    ],
+
+    sunglasses: [
+        "sunglasses",
+    ],
+
+    // =========================
+    // GROCERY
+    // =========================
+    groceries: [
+        "groceries",
+    ],
+
+    // =========================
+    // SPORTS
+    // =========================
+    "sports-accessories": [
+        "sports-accessories",
+    ],
+
+    // =========================
+    // VEHICLES
+    // =========================
+    vehicles: [
+        "vehicle",
     ],
 };
+
 
 
 /* =========================
@@ -62,6 +170,10 @@ const collectionGroups = {
         "womens-bags",
     ],
 
+    jewellery: [
+        "womens-jewellery",
+    ],
+
     tops: [
         "tops",
     ],
@@ -70,7 +182,48 @@ const collectionGroups = {
         "sunglasses",
     ],
 
+    mobiles: [
+        "smartphones",
+    ],
+
+    accessories: [
+        "mobile-accessories",
+    ],
+
+    laptops: [
+        "laptops",
+    ],
+
+    tablets: [
+        "tablets",
+    ],
+
+    electronics: [
+        "smartphones",
+        "mobile-accessories",
+        "laptops",
+        "tablets",
+    ],
+
+    beauty: [
+        "beauty",
+        "skin-care",
+    ],
+
+    fragrances: [
+        "fragrances",
+    ],
+
+    furniture: [
+        "furniture",
+    ],
+
+    sports: [
+        "sports-accessories",
+    ],
+
 };
+
 
 
 /* =========================
@@ -80,18 +233,24 @@ const collectionGroups = {
 const collectionTitles = {
 
     shirts: "Shirts",
-
     shoes: "Shoes",
-
     dresses: "Dresses",
-
     watches: "Watches",
-
     bags: "Bags",
-
+    jewellery: "Jewellery",
     tops: "Tops",
-
     sunglasses: "Sunglasses",
+
+    mobiles: "Mobiles",
+    accessories: "Mobile Accessories",
+    laptops: "Laptops",
+    tablets: "Tablets",
+    electronics: "Electronics",
+
+    beauty: "Beauty",
+    fragrances: "Fragrances",
+    furniture: "Furniture",
+    sports: "Sports Accessories",
 
 };
 
