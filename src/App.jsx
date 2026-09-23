@@ -51,7 +51,7 @@ function Home({
       .map((product) => product.category)
       .filter((cat) => cat !== "groceries");
 
-    return ["All", ...new Set(homeCategories)];
+    // return ["All", ...new Set(homeCategories)];
   }, [products]);
 
   const filteredProducts = useMemo(() => {
@@ -127,7 +127,7 @@ function Home({
           HOME CATEGORIES
       ========================= */}
 
-      <section className="category-strip">
+      {/* <section className="category-strip">
         {categories.slice(0, 9).map((cat) => (
           <button
             key={cat}
@@ -137,7 +137,7 @@ function Home({
             {cat.replaceAll("-", " ")}
           </button>
         ))}
-      </section>
+      </section> */}
 
       {/* =========================
           HERO

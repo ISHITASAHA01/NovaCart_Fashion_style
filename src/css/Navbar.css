@@ -685,7 +685,7 @@
 
 /* VIEW ALL */
 
-.view-all-categories {
+/* .view-all-categories {
   margin-left: auto;
 
   flex-shrink: 0;
@@ -701,11 +701,7 @@
   cursor: pointer;
 
   white-space: nowrap;
-}
-
-.view-all-categories:hover {
-  text-decoration: underline;
-}
+} */
 
 
 /* =====================================================

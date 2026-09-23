@@ -293,15 +293,6 @@ function Navbar({
 
           <div className="search-box">
 
-            <button
-              className="category-dropdown"
-              onClick={() => setShowAllCategories((value) => !value)}
-              aria-expanded={showAllCategories}
-            >
-              All Categories
-              <span style={{ fontSize: 12, marginLeft: 4 }}>▼</span>
-            </button>
-
             <input
               value={search}
               onChange={(e) =>
@@ -673,11 +664,13 @@ function Navbar({
           CATEGORY CHIPS
       ===================================================== */}
 
+
       <div className="category-chips-wrapper">
 
         <div className="category-chips">
 
           {/* ALL */}
+
           <button
             className={`category-chip ${activeChip === "All" ? "active" : ""}`}
             onClick={goHome}
@@ -685,67 +678,165 @@ function Navbar({
             All
           </button>
 
+
+          {/* ================= ELECTRONICS ================= */}
+
           <button
-            className={`category-chip ${activeChip === "Beauty" ? "active" : ""}`}
-            onClick={() => handleCategoryClick("Beauty", "/beauty")}
+            className={`category-chip ${activeChip === "Electronics" ? "active" : ""}`}
+            onClick={() => handleCategoryClick("Electronics", "/electronics")}
           >
-            Beauty
+            💻 Electronics
           </button>
 
           <button
-            className={`category-chip ${activeChip === "Fragrances" ? "active" : ""}`}
-            onClick={() => handleCategoryClick("Fragrances", "/fragrances")}
+            className={`category-chip ${activeChip === "Smartphones" ? "active" : ""}`}
+            onClick={() => handleCategoryClick("Smartphones", "/smartphones")}
           >
-            Fragrances
+            📱 Smartphones
           </button>
 
           <button
-            className={`category-chip ${activeChip === "Furniture" ? "active" : ""}`}
-            onClick={() => handleCategoryClick("Furniture", "/furniture")}
+            className={`category-chip ${activeChip === "Mobile Accessories" ? "active" : ""}`}
+            onClick={() => handleCategoryClick("Mobile Accessories", "/mobile-accessories")}
           >
-            Furniture
-          </button>
-
-          <button
-            className={`category-chip ${activeChip === "Home Decoration" ? "active" : ""}`}
-            onClick={() => handleCategoryClick("Home Decoration", "/home-decoration")}
-          >
-            Home Decoration
-          </button>
-
-          <button
-            className={`category-chip ${activeChip === "Kitchen Accessories" ? "active" : ""}`}
-            onClick={() => handleCategoryClick("Kitchen Accessories", "/kitchen-accessories")}
-          >
-            Kitchen Accessories
+            🔌 Mobile Accessories
           </button>
 
           <button
             className={`category-chip ${activeChip === "Laptops" ? "active" : ""}`}
             onClick={() => handleCategoryClick("Laptops", "/laptops")}
           >
-            Laptops
+            💻 Laptops
+          </button>
+
+          <button
+            className={`category-chip ${activeChip === "Tablets" ? "active" : ""}`}
+            onClick={() => handleCategoryClick("Tablets", "/tablets")}
+          >
+            📲 Tablets
+          </button>
+
+
+          {/* ================= BEAUTY ================= */}
+
+          <button
+            className={`category-chip ${activeChip === "Beauty" ? "active" : ""}`}
+            onClick={() => handleCategoryClick("Beauty", "/beauty")}
+          >
+            💄 Beauty
+          </button>
+
+
+          {/* ================= FRAGRANCES ================= */}
+
+          <button
+            className={`category-chip ${activeChip === "Fragrances" ? "active" : ""}`}
+            onClick={() => handleCategoryClick("Fragrances", "/fragrances")}
+          >
+            🌸 Fragrances
+          </button>
+
+
+          {/* ================= HOME ================= */}
+
+          <button
+            className={`category-chip ${activeChip === "Furniture" ? "active" : ""}`}
+            onClick={() => handleCategoryClick("Furniture", "/furniture")}
+          >
+            🛋️ Furniture
+          </button>
+
+          <button
+            className={`category-chip ${activeChip === "Home Decoration" ? "active" : ""}`}
+            onClick={() => handleCategoryClick("Home Decoration", "/home-decoration")}
+          >
+            🏠 Home Decoration
+          </button>
+
+
+          {/* ================= FASHION ================= */}
+
+          <button
+            className={`category-chip ${activeChip === "Fashion" ? "active" : ""}`}
+            onClick={() => handleCategoryClick("Fashion", "/fashion")}
+          >
+            👗 Fashion
           </button>
 
           <button
             className={`category-chip ${activeChip === "Mens Shirts" ? "active" : ""}`}
             onClick={() => handleCategoryClick("Mens Shirts", "/fashion?collection=shirts")}
           >
-            Mens Shirts
+            👔 Mens Shirts
           </button>
 
           <button
             className={`category-chip ${activeChip === "Mens Shoes" ? "active" : ""}`}
             onClick={() => handleCategoryClick("Mens Shoes", "/fashion?collection=shoes")}
           >
-            Mens Shoes
+            👟 Mens Shoes
           </button>
 
           <button
-            className="view-all-categories"
-            onClick={() => setShowAllCategories(true)}
+            className={`category-chip ${activeChip === "Watches" ? "active" : ""}`}
+            onClick={() => handleCategoryClick("Watches", "/fashion?collection=watches")}
           >
-            View All Categories →
+            ⌚ Watches
+          </button>
+
+          <button
+            className={`category-chip ${activeChip === "Dresses" ? "active" : ""}`}
+            onClick={() => handleCategoryClick("Dresses", "/fashion?collection=dresses")}
+          >
+            👗 Dresses
+          </button>
+
+          <button
+            className={`category-chip ${activeChip === "Bags" ? "active" : ""}`}
+            onClick={() => handleCategoryClick("Bags", "/fashion?collection=bags")}
+          >
+            👜 Bags
+          </button>
+
+          <button
+            className={`category-chip ${activeChip === "Jewellery" ? "active" : ""}`}
+            onClick={() => handleCategoryClick("Jewellery", "/fashion?collection=jewellery")}
+          >
+            💎 Jewellery
+          </button>
+
+          <button
+            className={`category-chip ${activeChip === "Tops" ? "active" : ""}`}
+            onClick={() => handleCategoryClick("Tops", "/fashion?collection=tops")}
+          >
+            👕 Tops
+          </button>
+
+          <button
+            className={`category-chip ${activeChip === "Sunglasses" ? "active" : ""}`}
+            onClick={() => handleCategoryClick("Sunglasses", "/fashion?collection=sunglasses")}
+          >
+            🕶️ Sunglasses
+          </button>
+
+
+          {/* ================= GROCERY ================= */}
+
+          <button
+            className={`category-chip ${activeChip === "Grocery" ? "active" : ""}`}
+            onClick={() => handleCategoryClick("Grocery", "/grocery")}
+          >
+            🛒 Grocery
+          </button>
+
+
+          {/* ================= SPORTS ================= */}
+
+          <button
+            className={`category-chip ${activeChip === "Sports" ? "active" : ""}`}
+            onClick={() => handleCategoryClick("Sports", "/sports")}
+          >
+            ⚽ Sports
           </button>
 
         </div>
